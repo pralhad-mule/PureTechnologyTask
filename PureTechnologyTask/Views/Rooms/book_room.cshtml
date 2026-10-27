@@ -1,0 +1,232 @@
+﻿@model PureTechnologyTask.Models.Booking
+
+@{
+    ViewBag.Title = "Book Room";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Book Room - Lemon Tree Hotel</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet" />
+
+    <style>
+        body {
+            margin: 0;
+            padding: 30px 15px;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+        }
+
+        .booking-card {
+            max-width: 850px;
+            margin: auto;
+            padding: 35px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .hotel-title {
+            text-align: center;
+            color: #123047;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #6c757d;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            color: #2563eb;
+            font-weight: bold;
+            margin: 25px 0 15px;
+        }
+
+        .form-control,
+        .form-select {
+            padding: 11px;
+            border-radius: 8px;
+        }
+
+        .btn-book {
+            background: #198754;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+        }
+
+            .btn-book:hover {
+                background: #146c43;
+                color: white;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="booking-card">
+
+        <h2 class="hotel-title">🍋 Lemon Tree Hotel</h2>
+        <p class="subtitle">Room Booking Form</p>
+
+        @if (ViewData["status"] != null)
+        {
+            <div class="alert alert-info">
+                @ViewData["status"]
+            </div>
+        }
+
+        <form asp-controller="Rooms"
+              asp-action="book_room"
+              method="post">
+
+            @Html.AntiForgeryToken()
+
+            <h5 class="section-title">Customer Information</h5>
+
+            <div class="row g-3">
+
+                <div class="col-md-6">
+                    <label asp-for="custimername" class="form-label">
+                        Customer Name
+                    </label>
+                    <input asp-for="custimername"
+                           class="form-control"
+                           placeholder="Enter customer name"
+                           required />
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="email" class="form-label">
+                        Email Address
+                    </label>
+                    <input asp-for="email"
+                           type="email"
+                           class="form-control"
+                           placeholder="Enter email address"
+                           required />
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="phone" class="form-label">
+                        Mobile Number
+                    </label>
+                    <input asp-for="phone"
+                           type="tel"
+                           class="form-control"
+                           placeholder="Enter mobile number"
+                           required />
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="roomtype" class="form-label">
+                        Room Type
+                    </label>
+                    <select asp-for="roomtype" class="form-select" required>
+                        <option value="">Select Room Type</option>
+                        <option value="Standard">Standard</option>
+                        <option value="Deluxe">Deluxe</option>
+                        <option value="Super Deluxe">Super Deluxe</option>
+                        <option value="Family">Family</option>
+                        <option value="Presidential">Presidential</option>
+                        <option value="Meeting">Meeting Room</option>
+                        <option value="Executive">Executive</option>
+                        <option value="Premium">Premium</option>
+                        <option value="Luxury">Luxury</option>
+                        <option value="Business">Business</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <h5 class="section-title">Booking Details</h5>
+
+            <div class="row g-3">
+
+                <div class="col-md-6">
+                    <label asp-for="CheckInDate" class="form-label">
+                        Check-in Date
+                    </label>
+                    <input asp-for="CheckInDate"
+                           type="date"
+                           class="form-control"
+                           required />
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="CheckOutDate" class="form-label">
+                        Check-out Date
+                    </label>
+                    <input asp-for="CheckOutDate"
+                           type="date"
+                           class="form-control"
+                           required />
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="Guests" class="form-label">
+                        Number of Guests
+                    </label>
+                    <input asp-for="Guests"
+                           type="number"
+                           min="1"
+                           class="form-control"
+                           required />
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="Price_Per_Nigh" class="form-label">
+                        Price Per Night (₹)
+                    </label>
+                    <input asp-for="Price_Per_Nigh"
+                           type="number"
+                           min="1"
+                           step="0.01"
+                           class="form-control"
+                           required />
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="TotalPrice" class="form-label">
+                        Total Price (₹)
+                    </label>
+                    <input asp-for="TotalPrice"
+                           type="number"
+                           min="1"
+                           class="form-control"
+                           required />
+                </div>
+
+            </div>
+
+            <div class="d-flex flex-wrap gap-2 mt-4">
+                <button type="submit" class="btn-book">
+                    Confirm Booking
+                </button>
+
+                <a asp-controller="Rooms"
+                   asp-action="Room"
+                   class="btn btn-secondary">
+                    Back to Rooms
+                </a>
+
+                <a asp-controller="Home"
+                   asp-action="Index"
+                   class="btn btn-outline-dark">
+                    Home
+                </a>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+</html>

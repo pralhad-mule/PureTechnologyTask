@@ -1,0 +1,624 @@
+﻿
+@model PureTechnologyTask.Models.FoodOrder
+
+@{
+    ViewBag.Title = "Order Food";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lemon Tree Hotel - Order Food</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(rgba(0, 60, 25, 0.72), rgba(0, 45, 20, 0.78)),
+                        url("https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1600&q=80");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+        }
+
+        .container-box {
+            width: 100%;
+            max-width: 850px;
+            margin: 25px auto;
+            padding: 32px;
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        .hotel-title {
+            margin-bottom: 5px;
+            text-align: center;
+            color: darkgreen;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .page-title {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .form-table {
+            width: 100%;
+        }
+
+        .form-table td {
+            padding: 12px;
+            vertical-align: top;
+        }
+
+        .label-column {
+            width: 190px;
+            padding-top: 20px !important;
+            font-size: 17px;
+        }
+
+        .form-control {
+            min-height: 44px;
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .menu-type-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .menu-type-option {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            min-width: 120px;
+            padding: 10px 14px;
+            background: #f5f5f5;
+            border: 1px solid #d4d4d4;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .menu-type-option:hover {
+            background: #ecf9ec;
+            border-color: green;
+        }
+
+        .menu-type-option input {
+            width: 18px;
+            height: 18px;
+            accent-color: green;
+        }
+
+        .category-heading {
+            margin: 16px 0 10px;
+            padding: 8px 12px;
+            color: white;
+            background: darkgreen;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .category-heading.non-veg-heading {
+            background: #9c1c1c;
+        }
+
+        .menu-item {
+            display: grid;
+            grid-template-columns: 35px 1fr 110px 110px;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding: 13px;
+            background: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+
+        .menu-item:hover {
+            background: #f2fff2;
+            border-color: #73a873;
+            transform: translateY(-1px);
+        }
+
+        .food-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: green;
+        }
+
+        .food-name {
+            margin: 0;
+            cursor: pointer;
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .food-type {
+            display: inline-block;
+            margin-left: 6px;
+            padding: 3px 7px;
+            border-radius: 10px;
+            color: white;
+            background: green;
+            font-size: 11px;
+        }
+
+        .food-type.non-veg {
+            background: #b22222;
+        }
+
+        .food-price {
+            color: darkgreen;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .quantity-box {
+            width: 95px;
+            height: 40px;
+            padding: 7px;
+            text-align: center;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+        }
+
+        .quantity-box:disabled {
+            background: #eee;
+            cursor: not-allowed;
+        }
+
+        .total-box {
+            color: darkgreen;
+            background: #efffef !important;
+            border: 2px solid green;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .btn-order {
+            width: 240px;
+            min-height: 48px;
+            color: white;
+            background: green;
+            border: none;
+            border-radius: 7px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .btn-order:hover {
+            background: darkgreen;
+            transform: translateY(-1px);
+        }
+
+        .validation-summary-errors {
+            margin-bottom: 18px;
+            padding: 12px 15px;
+            color: #842029;
+            background: #f8d7da;
+            border: 1px solid #f5c2c7;
+            border-radius: 7px;
+        }
+
+        .validation-summary-errors ul {
+            margin: 0;
+            padding-left: 22px;
+        }
+
+        .field-validation-error {
+            display: block;
+            margin-top: 5px;
+            color: #bb1e1e;
+            font-size: 14px;
+        }
+
+        .status-message {
+            margin-top: 20px;
+            padding: 14px;
+            color: #0f5132;
+            background: #d1e7dd;
+            border: 1px solid #badbcc;
+            border-radius: 7px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .menu-help {
+            display: block;
+            margin-top: 8px;
+            color: #666;
+            font-size: 13px;
+        }
+
+        @@media screen and (max-width: 700px) {
+            body {
+                padding: 10px;
+            }
+
+            .container-box {
+                margin: 10px auto;
+                padding: 20px 15px;
+            }
+
+            .hotel-title {
+                font-size: 25px;
+            }
+
+            .form-table,
+            .form-table tbody,
+            .form-table tr,
+            .form-table td {
+                display: block;
+                width: 100%;
+            }
+
+            .form-table td {
+                padding: 7px 0;
+            }
+
+            .label-column {
+                padding-top: 10px !important;
+            }
+
+            .menu-item {
+                grid-template-columns: 30px 1fr 85px;
+            }
+
+            .quantity-box {
+                grid-column: 2 / 4;
+                width: 100%;
+            }
+
+            .menu-type-option {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-box">
+        <h1 class="hotel-title">LEMON TREE HOTEL</h1>
+        <h2 class="page-title">ORDER FOOD</h2>
+        <hr />
+
+        @using (Html.BeginForm("ordernow", "Resturent", FormMethod.Post,
+            new { id = "foodOrderForm", autocomplete = "off" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "validation-summary-errors" })
+
+            <table class="form-table">
+                <tr>
+                    <td class="label-column">
+                        <strong>Customer Name</strong>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.customerName,
+                            new {
+                                @class = "form-control",
+                                placeholder = "Enter customer name",
+                                maxlength = "100",
+                                required = "required"
+                            })
+
+                        @Html.ValidationMessageFor(model => model.customerName)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-column"><strong>Menu Type</strong></td>
+                    <td>
+                        <div class="menu-type-container">
+                            <label class="menu-type-option" for="veg">
+                                <input type="radio" id="veg" name="MenuType"
+                                       value="Veg" checked onchange="showVeg()" />
+                                <span>Veg</span>
+                            </label>
+
+                            <label class="menu-type-option" for="nonVeg">
+                                <input type="radio" id="nonVeg" name="MenuType"
+                                       value="NonVeg" onchange="showNonVeg()" />
+                                <span>Non-Veg</span>
+                            </label>
+
+                            <label class="menu-type-option" for="both">
+                                <input type="radio" id="both" name="MenuType"
+                                       value="Both" onchange="showBoth()" />
+                                <span>Veg + Non-Veg</span>
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-column"><strong>Select Items</strong></td>
+                    <td>
+                        <div id="menuContainer"></div>
+                        <small class="menu-help">
+                            Select multiple food items and enter a separate quantity
+                            for each selected item.
+                        </small>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-column"><strong>Total Price</strong></td>
+                    <td>
+                        <input type="text" id="displayTotal"
+                               class="form-control total-box"
+                               value="₹0.00" readonly />
+
+                        <input type="hidden" id="totalPrice"
+                               name="TotalPrice" value="0" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-column"><strong>Description</strong></td>
+                    <td>
+                        @Html.TextAreaFor(model => model.Description,
+                            new {
+                                @class = "form-control",
+                                placeholder = "Special instructions, for example: Less spicy, no onion or extra cheese",
+                                maxlength = "500"
+                            })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" class="text-center pt-4">
+                        <button type="submit" class="btn-order">
+                            Confirm Order
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        }
+
+        @if (ViewBag.Status != null)
+        {
+            <div class="status-message">
+                @ViewBag.Status
+            </div>
+        }
+    </div>
+
+    <script>
+        const vegItems = [
+            { name: "Paneer Tikka", price: 280, type: "Veg" },
+            { name: " Spring Role", price: 190, type: "Veg" },
+            { name: "Chilli Paneer", price: 300, type: "Veg" },
+            { name: "Crispy Cron ", price: 210, type: "Veg" },
+            { name: " Panner Butter Masala ", price: 280, type: "Veg" },
+            { name: " Kadai Panner ", price: 300, type: "Veg" },
+            { name: " Shahi Panner ", price: 320, type: "Veg" },
+            { name: "Dal Tadka ", price: 180, type: "Veg" }
+        ];
+
+        const nonVegItems = [
+            { name: "Chicken Tikka", price: 320, type: "NonVeg" },
+            { name: "Chicken 65", price: 180, type: "NonVeg" },
+            { name: " Chicken Birani", price: 130, type: "NonVeg" },
+            { name: "Butter Chicken ", price: 230, type: "NonVeg" },
+            { name: " Chicken Kolhapuri", price: 250, type: "NonVeg" },
+            { name: " Chicken Tikka Masala", price: 170, type: "NonVeg" },
+            { name: " Mutton Masala", price: 330, type: "NonVeg" },
+            { name: "Fish Curry", price: 180, type: "NonVeg" }
+        ];
+
+        document.addEventListener("DOMContentLoaded", function () {
+            showVeg();
+        });
+
+        function showVeg() {
+            createMenu(vegItems, false);
+        }
+
+        function showNonVeg() {
+            createMenu(nonVegItems, false);
+        }
+
+        function showBoth() {
+            const combinedItems = [...vegItems, ...nonVegItems];
+            createMenu(combinedItems, true);
+        }
+
+        function createMenu(items, showCategoryHeadings) {
+            const container = document.getElementById("menuContainer");
+            container.innerHTML = "";
+
+            let previousType = "";
+
+            items.forEach(function (item, index) {
+                if (showCategoryHeadings && previousType !== item.type) {
+                    const heading = document.createElement("div");
+
+                    heading.className = item.type === "NonVeg"
+                        ? "category-heading non-veg-heading"
+                        : "category-heading";
+
+                    heading.textContent = item.type === "NonVeg"
+                        ? "Non-Vegetarian Items"
+                        : "Vegetarian Items";
+
+                    container.appendChild(heading);
+                    previousType = item.type;
+                }
+
+                const itemContainer = document.createElement("div");
+                itemContainer.className = "menu-item";
+
+                const typeText = item.type === "NonVeg" ? "Non-Veg" : "Veg";
+                const typeClass = item.type === "NonVeg"
+                    ? "food-type non-veg"
+                    : "food-type";
+
+                itemContainer.innerHTML = `
+                    <input type="hidden"
+                           name="OrderItems[${index}].FoodName"
+                           value="${item.name}" />
+
+                    <input type="hidden"
+                           name="OrderItems[${index}].ItemType"
+                           value="${item.type}" />
+
+                    <input type="hidden"
+                           name="OrderItems[${index}].Price"
+                           value="${item.price}" />
+
+                    <input type="checkbox"
+                           class="food-checkbox"
+                           id="food_${index}"
+                           name="OrderItems[${index}].Selected"
+                           value="true"
+                           data-index="${index}"
+                           data-price="${item.price}"
+                           onchange="itemSelectionChanged(${index})" />
+
+                    <label class="food-name" for="food_${index}">
+                        ${item.name}
+                        <span class="${typeClass}">${typeText}</span>
+                    </label>
+
+                    <span class="food-price">
+                        ₹${item.price.toFixed(2)}
+                    </span>
+
+                    <input type="number"
+                           class="quantity-box"
+                           id="quantity_${index}"
+                           name="OrderItems[${index}].Quantity"
+                           value="1"
+                           min="1"
+                           max="50"
+                           disabled
+                           oninput="calculateTotal()" />
+                `;
+
+                container.appendChild(itemContainer);
+            });
+
+            calculateTotal();
+        }
+
+        function itemSelectionChanged(index) {
+            const checkbox = document.getElementById("food_" + index);
+            const quantityInput = document.getElementById("quantity_" + index);
+
+            quantityInput.disabled = !checkbox.checked;
+
+            if (checkbox.checked) {
+                if (!quantityInput.value || parseInt(quantityInput.value) < 1) {
+                    quantityInput.value = 1;
+                }
+            } else {
+                quantityInput.value = 1;
+            }
+
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            const selectedCheckboxes =
+                document.querySelectorAll(".food-checkbox:checked");
+
+            let total = 0;
+
+            selectedCheckboxes.forEach(function (checkbox) {
+                const index = checkbox.getAttribute("data-index");
+                const price = parseFloat(checkbox.getAttribute("data-price")) || 0;
+                const quantityInput = document.getElementById("quantity_" + index);
+
+                let quantity = parseInt(quantityInput.value) || 1;
+
+                if (quantity < 1) {
+                    quantity = 1;
+                    quantityInput.value = 1;
+                }
+
+                if (quantity > 50) {
+                    quantity = 50;
+                    quantityInput.value = 50;
+                }
+
+                total += price * quantity;
+            });
+
+            document.getElementById("displayTotal").value =
+                "₹" + total.toFixed(2);
+
+            document.getElementById("totalPrice").value =
+                total.toFixed(2);
+        }
+
+        document.getElementById("foodOrderForm").addEventListener("submit",
+            function (event) {
+                const customerName =
+                    document.querySelector("[name='customerName']").value.trim();
+
+                const selectedItems =
+                    document.querySelectorAll(".food-checkbox:checked");
+
+                if (customerName === "") {
+                    event.preventDefault();
+                    alert("Please enter the customer name.");
+                    return;
+                }
+
+                if (selectedItems.length === 0) {
+                    event.preventDefault();
+                    alert("Please select at least one food item.");
+                    return;
+                }
+
+                let invalidQuantity = false;
+
+                selectedItems.forEach(function (checkbox) {
+                    const index = checkbox.getAttribute("data-index");
+
+                    const quantity = parseInt(
+                        document.getElementById("quantity_" + index).value
+                    );
+
+                    if (isNaN(quantity) || quantity < 1 || quantity > 50) {
+                        invalidQuantity = true;
+                    }
+                });
+
+                if (invalidQuantity) {
+                    event.preventDefault();
+                    alert("Quantity must be between 1 and 50.");
+                }
+            });
+    </script>
+</body>
+</html>

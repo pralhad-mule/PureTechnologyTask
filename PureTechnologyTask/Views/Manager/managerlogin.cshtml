@@ -1,0 +1,136 @@
+﻿@*
+    Manager Login View
+*@
+@{
+    ViewData["Title"] = "Manager Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Manager Login - Lemon Tree Hotel</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet" />
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #123047, #2563eb);
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .hotel-title {
+            text-align: center;
+            color: #123047;
+            font-size: 25px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 28px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .form-control {
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-weight: bold;
+        }
+
+            .btn-login:hover {
+                background: #1d4ed8;
+            }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #2563eb;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <div class="hotel-title">🍋 Lemon Tree Hotel</div>
+        <p class="subtitle">Manager Login</p>
+
+        @if (ViewBag.Message != null)
+        {
+            <div class="alert alert-danger">
+                @ViewBag.Message
+            </div>
+        }
+
+        <form asp-controller="Manager" asp-action="managerlogin" method="post">
+            @Html.AntiForgeryToken()
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email"
+                       id="email"
+                       name="email"
+                       class="form-control"
+                       placeholder="Enter your email"
+                       autocomplete="username"
+                       required />
+            </div>
+
+            <div class="mb-4">
+                <label for="password" class="form-label">Password</label>
+                <input type="password"
+                       id="password"
+                       name="password"
+                       class="form-control"
+                       placeholder="Enter your password"
+                       autocomplete="current-password"
+                       required />
+            </div>
+
+            <button type="submit" class="btn-login">
+                Login
+            </button>
+
+            <a asp-controller="Home" asp-action="Index" class="back-link">
+                Back to Home
+            </a>
+        </form>
+    </div>
+
+</body>
+</html>

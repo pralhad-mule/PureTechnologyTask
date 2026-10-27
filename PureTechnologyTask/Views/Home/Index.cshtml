@@ -1,0 +1,276 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Lemon Tree Hotel";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lemon Tree Hotel</title>
+
+    <style>
+        body {
+            background-image: url('/imagess/facade-night-view.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Header */
+        header {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            background: rgba(0,0,0,0.4);
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+            nav ul li {
+                margin-left: 25px;
+            }
+
+                nav ul li a {
+                    text-decoration: none;
+                    color: white;
+                    font-size: 16px;
+                    transition: 0.3s;
+                }
+
+                    nav ul li a:hover {
+                        color: #f4c542;
+                    }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: url('https://images.unsplash.com/photo-1501117716987-c8e1ecb210e9') no-repeat center/cover;
+            position: relative;
+        }
+
+        /* Dark overlay */
+        .overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+        }
+
+        /* Content */
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 1;
+            width: 90%;
+        }
+
+            .content h1 {
+                font-size: 48px;
+                margin-bottom: 15px;
+            }
+
+                .content h1 span {
+                    color: #f4c542;
+                }
+
+            .content p {
+                font-size: 18px;
+                margin-bottom: 25px;
+            }
+
+        /* Button */
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            border: none;
+            background: #f4c542;
+            color: black;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+            button:hover {
+                background: #d4a62a;
+            }
+
+        .navbar {
+            list-style: none;
+            background: #222;
+            display: flex;
+            padding: 15px 30px;
+            justify-content: flex-end;
+        }
+
+            .navbar li {
+                position: relative;
+            }
+
+                .navbar li a {
+                    color: white;
+                    text-decoration: none;
+                    padding: 12px 20px;
+                    display: block;
+                    transition: 0.3s;
+                }
+
+                    .navbar li a:hover {
+                        background: #ff9800;
+                        border-radius: 5px;
+                    }
+
+        /* Dropdown Menu */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            left: auto;
+            margin-left: auto;
+            background: white;
+            min-width: 200px;
+            list-style: none;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+            /* Dropdown links */
+            .dropdown-content li a {
+                color: black;
+                padding: 12px 15px;
+            }
+
+                .dropdown-content li a:hover {
+                    background: #f1f1f1;
+                    color: #ff9800;
+                }
+
+        /* Show dropdown on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        select {
+            padding: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        @@media (max-width: 768px) {
+            header {
+                padding: 15px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 5px;
+            }
+
+                nav ul li {
+                    margin-left: 5px;
+                }
+
+                    nav ul li a {
+                        font-size: 14px;
+                        padding: 8px;
+                    }
+
+            .content h1 {
+                font-size: 32px;
+            }
+
+            .content p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header>
+        <div class="logo">Lemon Tree Hotel</div>
+
+        <nav>
+            <ul>
+                <li>
+                    <a asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+
+                <li>
+                    <a asp-controller="Resturent" asp-action="resturentmenu">
+                        Restaurant
+                    </a>
+                </li>
+
+                <li>
+                    <a>Services</a>
+                </li>
+
+                <li>
+                    <a asp-controller="Contact" asp-action="contack_page">
+                        Contact
+                    </a>
+                </li>
+
+                <li>
+                    <select onchange="window.location.href=this.value;">
+                        <option value="">Select Login</option>
+                        <option value="/Admin/Adminlogin">Admin Login</option>
+                        <option value="/Manager/managerlogin">Manager Login</option>
+                        <option value="/UserRegistration/userlogin">User Login</option>
+                    </select>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="overlay"></div>
+
+        <div class="content">
+            <h1>Welcome to <span>Lemon Tree</span> Hotel</h1>
+
+            <p>Experience luxury, comfort, and world class hospitality</p>
+
+            <a asp-controller="UserRegistration" asp-action="userlogin">
+                <button type="button">Book Now</button>
+            </a>
+        </div>
+    </section>
+
+</body>
+</html>

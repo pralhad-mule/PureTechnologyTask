@@ -1,0 +1,215 @@
+﻿@{
+    ViewBag.Title = "Standard Room";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Standard Room - Lemon Tree Hotel</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet" />
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+        }
+
+        .navbar {
+            background: #123047;
+            padding: 15px 25px;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        .navbar .nav-link {
+            color: white;
+        }
+
+        .room-banner {
+            background: linear-gradient(135deg, #123047, #2563eb);
+            color: white;
+            padding: 45px 20px;
+            text-align: center;
+        }
+
+            .room-banner h1 {
+                font-weight: bold;
+            }
+
+        .details-card {
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .room-image {
+            min-height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e7edf5;
+            border-radius: 12px;
+            font-size: 100px;
+        }
+
+        .section-title {
+            color: #123047;
+            font-weight: bold;
+        }
+
+        .price {
+            color: #198754;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .btn-book {
+            background: #198754;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+            .btn-book:hover {
+                background: #146c43;
+                color: white;
+            }
+
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            background: #123047;
+            color: white;
+            text-align: center;
+        }
+
+        @@media (max-width: 576px) {
+            .details-card {
+                padding: 20px;
+            }
+
+            .room-image {
+                min-height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand"
+               asp-controller="Home"
+               asp-action="Index">
+                🍋 Lemon Tree Hotel
+            </a>
+
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#standardNavbar"
+                    aria-controls="standardNavbar"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="standardNavbar">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           asp-controller="Home"
+                           asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           asp-controller="Rooms"
+                           asp-action="Room">Rooms</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           asp-controller="Contact"
+                           asp-action="contack_page">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="room-banner">
+        <div class="container">
+            <h1>Standard Room</h1>
+            <p class="mb-0">Comfortable accommodation for a relaxing stay.</p>
+        </div>
+    </section>
+
+    <div class="container my-5">
+        <div class="details-card">
+            <div class="row g-4 align-items-center">
+
+                <div class="col-lg-5">
+                    <div class="room-image">🛏️</div>
+                </div>
+
+                <div class="col-lg-7">
+                    <h2 class="section-title">Standard Room Details</h2>
+
+                    <p class="text-secondary">
+                        Enjoy a comfortable and convenient stay in a
+                        welcoming room with essential hotel facilities.
+                    </p>
+
+                    <h5 class="section-title mt-4">Room Facilities</h5>
+
+                    <ul class="list-group list-group-flush mb-4">
+                        <li class="list-group-item">✓ Comfortable bed</li>
+                        <li class="list-group-item">✓ Air conditioning</li>
+                        <li class="list-group-item">✓ Wi-Fi access</li>
+                        <li class="list-group-item">✓ Television</li>
+                        <li class="list-group-item">✓ Private bathroom</li>
+                    </ul>
+
+                    <p class="price">Contact hotel for room price</p>
+
+                    <a asp-controller="Rooms"
+                       asp-action="book_room"
+                       class="btn-book">
+                        Book This Room
+                    </a>
+
+                    <a asp-controller="Rooms"
+                       asp-action="Room"
+                       class="btn btn-outline-secondary ms-2">
+                        Back to Rooms
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p class="mb-0">© 2026 Lemon Tree Hotel. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}

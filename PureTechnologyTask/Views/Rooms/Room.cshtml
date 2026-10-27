@@ -1,0 +1,325 @@
+﻿@{
+    ViewBag.Title = "Rooms";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rooms - Lemon Tree Hotel</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet" />
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+        }
+
+        .navbar {
+            background: #123047;
+            padding: 15px 25px;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        .navbar .nav-link {
+            color: white;
+        }
+
+        .hero {
+            padding: 55px 20px;
+            text-align: center;
+            color: white;
+            background: linear-gradient(135deg, #123047, #2563eb);
+        }
+
+            .hero h1 {
+                font-size: 40px;
+                font-weight: bold;
+            }
+
+        .section-title {
+            margin: 40px 0 25px;
+            text-align: center;
+            color: #123047;
+            font-weight: bold;
+        }
+
+        .room-card {
+            height: 100%;
+            overflow: hidden;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s;
+        }
+
+            .room-card:hover {
+                transform: translateY(-5px);
+            }
+
+        .room-image {
+            height: 170px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #e6edf5;
+            font-size: 60px;
+        }
+
+        .room-content {
+            padding: 22px;
+        }
+
+            .room-content h5 {
+                color: #123047;
+                font-weight: bold;
+            }
+
+        .room-price {
+            color: #198754;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .btn-room {
+            display: inline-block;
+            padding: 9px 16px;
+            color: white;
+            background: #2563eb;
+            text-decoration: none;
+            border-radius: 7px;
+        }
+
+            .btn-room:hover {
+                background: #1d4ed8;
+                color: white;
+            }
+
+        .booking-section {
+            margin: 45px 0;
+            padding: 30px;
+            text-align: center;
+            background: white;
+            border-radius: 12px;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            background: #123047;
+        }
+
+        @@media (max-width: 576px) {
+            .hero h1 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand"
+               asp-controller="Home"
+               asp-action="Index">
+                🍋 Lemon Tree Hotel
+            </a>
+
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#roomNavbar"
+                    aria-controls="roomNavbar"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="roomNavbar">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           asp-controller="Home"
+                           asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           asp-controller="Resturent"
+                           asp-action="resturentmenu">Restaurant</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           asp-controller="Contact"
+                           asp-action="contack_page">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Our Rooms</h1>
+            <p class="mb-4">
+                Find a comfortable room for your perfect stay.
+            </p>
+
+            <a asp-controller="Rooms"
+               asp-action="book_room"
+               class="btn btn-warning px-4 py-2">
+                Book a Room
+            </a>
+        </div>
+    </section>
+
+    <div class="container">
+
+        <h2 class="section-title">Explore Our Rooms</h2>
+
+        <div class="row g-4">
+
+            <div class="col-md-6 col-lg-4">
+                <div class="room-card">
+                    <div class="room-image">🛏️</div>
+                    <div class="room-content">
+                        <h5>Standard Room</h5>
+                        <p class="text-secondary">Comfortable accommodation for your stay.</p>
+                        <a asp-controller="Rooms" asp-action="view_details_standard"
+                           class="btn-room">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="room-card">
+                    <div class="room-image">🏨</div>
+                    <div class="room-content">
+                        <h5>Deluxe Room</h5>
+                        <p class="text-secondary">Extra space and comfort for a relaxing stay.</p>
+                        <a asp-controller="Rooms" asp-action="view_details_delux"
+                           class="btn-room">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="room-card">
+                    <div class="room-image">✨</div>
+                    <div class="room-content">
+                        <h5>Super Deluxe Room</h5>
+                        <p class="text-secondary">Enjoy a spacious and comfortable room.</p>
+                        <a asp-controller="Rooms" asp-action="view_details_superdelux"
+                           class="btn-room">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="room-card">
+                    <div class="room-image">👨‍👩‍👧‍👦</div>
+                    <div class="room-content">
+                        <h5>Family Room</h5>
+                        <p class="text-secondary">A welcoming space for family travellers.</p>
+                        <a asp-controller="Rooms" asp-action="view_details_family"
+                           class="btn-room">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="room-card">
+                    <div class="room-image">👑</div>
+                    <div class="room-content">
+                        <h5>Presidential Room</h5>
+                        <p class="text-secondary">An elegant option for a premium experience.</p>
+                        <a asp-controller="Rooms" asp-action="view_details_president"
+                           class="btn-room">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="room-card">
+                    <div class="room-image">💼</div>
+                    <div class="room-content">
+                        <h5>Business Room</h5>
+                        <p class="text-secondary">Designed for convenient business stays.</p>
+                        <a asp-controller="Rooms" asp-action="view_details_business"
+                           class="btn-room">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="room-card">
+                    <div class="room-image">💎</div>
+                    <div class="room-content">
+                        <h5>Premium Room</h5>
+                        <p class="text-secondary">A premium room for a comfortable visit.</p>
+                        <a asp-controller="Rooms" asp-action="view_details_premium"
+                           class="btn-room">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="room-card">
+                    <div class="room-image">🌟</div>
+                    <div class="room-content">
+                        <h5>Luxury Room</h5>
+                        <p class="text-secondary">Relax in a stylish and welcoming space.</p>
+                        <a asp-controller="Rooms" asp-action="view_details_luxary"
+                           class="btn-room">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="room-card">
+                    <div class="room-image">🏢</div>
+                    <div class="room-content">
+                        <h5>Executive Room</h5>
+                        <p class="text-secondary">A convenient option for executive travellers.</p>
+                        <a asp-controller="Rooms" asp-action="view_details_executative"
+                           class="btn-room">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="booking-section">
+            <h3 class="fw-bold">Ready to Book Your Stay?</h3>
+            <p class="text-secondary">
+                Choose your room and complete your reservation.
+            </p>
+
+            <a asp-controller="Rooms"
+               asp-action="book_room"
+               class="btn btn-success px-4 py-2">
+                Book Now
+            </a>
+        </div>
+
+    </div>
+
+    <footer>
+        <p class="mb-0">© 2026 Lemon Tree Hotel. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

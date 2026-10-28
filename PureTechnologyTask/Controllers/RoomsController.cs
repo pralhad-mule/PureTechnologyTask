@@ -1,9 +1,10 @@
-﻿
-using PureTechnologyTask.Models;
+﻿using PureTechnologyTask.Models;
 using System;
 using Microsoft.Data.SqlClient;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System.Globalization;
 
 namespace PureTechnologyTask.Controllers
 {
@@ -87,22 +88,61 @@ namespace PureTechnologyTask.Controllers
                 return View(b);
             }
 
+            if (!DateTime.TryParseExact(
+                    b.CheckInDate, "yyyy-MM-dd",
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.None, out DateTime checkIn) ||
+                !DateTime.TryParseExact(
+                    b.CheckOutDate, "yyyy-MM-dd",
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.None, out DateTime checkOut) ||
+                checkOut <= checkIn)
+            {
+                ViewData["status"] = "Please select valid check-in and check-out dates.";
+                return View(b);
+            }
+
             string path = HttpContext.RequestServices
                 .GetRequiredService<IConfiguration>()
                 .GetConnectionString("DefaultConnection");
 
-            SqlConnection sc = new SqlConnection(path);
-            sc.Open();
+            try
+            {
+                using (SqlConnection sc = new SqlConnection(path))
+                {
+                    sc.Open();
 
-            ViewData["status"] = "Book Successfully";
+                    string insert = @"INSERT INTO roombook
+                        (custimername, email, phone, roomtype, CheckInDate,
+                         CheckOutDate, Guests, Price_Per_Nig, TotalPrice)
+                        VALUES
+                        (@name, @email, @phone, @roomtype, @checkin,
+                         @checkout, @guests, @price, @total)";
 
-            string insert = "insert into roombook(custimername,email,phone,roomtype,CheckInDate,CheckOutDate,Guests,Price_Per_Nigh,TotalPrice )" +
-                " values('" + b.custimername + "','" + b.email + "' , '" + b.phone + "' ,'" + b.roomtype + "' , '" + b.CheckInDate + "' , '" + b.CheckOutDate + "' , '" + b.Guests + "','" + b.Price_Per_Nigh + "' ,'" + b.TotalPrice + "')";
+                    using (SqlCommand scom = new SqlCommand(insert, sc))
+                    {
+                        scom.Parameters.AddWithValue("@name", b.custimername);
+                        scom.Parameters.AddWithValue("@email", b.email);
+                        scom.Parameters.AddWithValue("@phone", b.phone);
+                        scom.Parameters.AddWithValue("@roomtype", b.roomtype);
+                        scom.Parameters.AddWithValue("@checkin", checkIn);
+                        scom.Parameters.AddWithValue("@checkout", checkOut);
+                        scom.Parameters.AddWithValue("@guests", b.Guests);
+                        scom.Parameters.AddWithValue("@price", b.Price_Per_Nigh);
+                        scom.Parameters.AddWithValue("@total", b.TotalPrice);
 
-            SqlCommand scom = new SqlCommand(insert, sc);
-            scom.ExecuteNonQuery();
+                        int rows = scom.ExecuteNonQuery();
 
-            sc.Close();
+                        ViewData["status"] = rows > 0
+                            ? "Booking Successfully Saved!"
+                            : "Booking was not inserted.";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewData["status"] = "Database error: " + ex.Message;
+            }
 
             return View(b);
         }

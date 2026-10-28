@@ -23,13 +23,16 @@ namespace PureTechnologyTask.Controllers
         }
 
         [HttpPost]
-        public IActionResult Adminlogin(string n, string p)
+        [ValidateAntiForgeryToken]
+        public IActionResult Adminlogin(string username, string password)
         {
-            if (n.Equals("pralhad@2507") && p.Equals("  `"))
+            if (username == "pralhad@2507" && password == "1234")
+            {
                 return RedirectToAction("admindashbord", "Admin");
+            }
             else
             {
-                ViewBag.s = "Login Unsuccessful";
+                ViewBag.Message = "Login Unsuccessful. Please check your username and password.";
                 return View();
             }
         }

@@ -1,135 +1,256 @@
-﻿@*
-    Manager Login View
-*@
-@{
-    ViewData["Title"] = "Manager Login";
+﻿@{
     Layout = null;
 }
 
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Manager Login - Lemon Tree Hotel</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet" />
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Lemon Tree Hotel - Manager Login</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        body {
+
+        * {
             margin: 0;
-            min-height: 100vh;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
-            padding: 20px;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #123047, #2563eb);
+            align-items: center;
+            background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=1600&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
         }
 
-        .login-card {
-            width: 100%;
-            max-width: 420px;
-            background: white;
-            padding: 35px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .hotel-title {
-            text-align: center;
-            color: #123047;
-            font-size: 25px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #64748b;
-            margin-bottom: 28px;
-        }
-
-        .form-label {
-            font-weight: 600;
-            color: #334155;
-        }
-
-        .form-control {
-            padding: 12px;
-            border-radius: 8px;
-        }
-
-        .btn-login {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            background: #2563eb;
+        .login-container {
+            width: 420px;
+            padding: 45px;
+            border-radius: 28px;
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(16px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.2);
             color: white;
-            font-weight: bold;
+            animation: fadeIn 1s ease;
         }
 
-            .btn-login:hover {
-                background: #1d4ed8;
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
             }
 
-        .back-link {
-            display: block;
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+            .logo h1 {
+                font-size: 38px;
+                color: #facc15;
+                font-weight: 700;
+            }
+
+            .logo p {
+                margin-top: 8px;
+                font-size: 15px;
+                color: #f1f5f9;
+            }
+
+        .icon {
+            font-size: 55px;
+            margin-bottom: 12px;
+        }
+
+        .input-box {
+            margin-bottom: 22px;
+        }
+
+            .input-box label {
+                display: block;
+                margin-bottom: 8px;
+                font-size: 14px;
+            }
+
+            .input-box input {
+                width: 100%;
+                padding: 15px;
+                border: none;
+                outline: none;
+                border-radius: 14px;
+                background: rgba(255,255,255,0.15);
+                color: white;
+                font-size: 15px;
+            }
+
+                .input-box input::placeholder {
+                    color: #e2e8f0;
+                }
+
+                .input-box input:focus {
+                    background: rgba(255,255,255,0.22);
+                    box-shadow: 0 0 10px rgba(250,204,21,0.5);
+                }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+            .options a {
+                color: #facc15;
+                text-decoration: none;
+            }
+
+                .options a:hover {
+                    text-decoration: underline;
+                }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(to right, #facc15, #eab308);
+            color: #111827;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+            .login-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 20px rgba(250,204,21,0.4);
+            }
+
+        .register {
             text-align: center;
             margin-top: 20px;
-            text-decoration: none;
-            color: #2563eb;
+            color: #facc15;
+            font-weight: 600;
         }
+
+        .message {
+            text-align: center;
+            margin-top: 15px;
+            color: #facc15;
+            font-weight: 600;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 13px;
+            color: #e5e7eb;
+        }
+
+        .new-manager {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+            .new-manager p {
+                color: #f1f5f9;
+                margin-bottom: 8px;
+            }
+
+            .new-manager a {
+                color: #facc15;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 15px;
+            }
+
+                .new-manager a:hover {
+                    text-decoration: underline;
+                }
     </style>
+
 </head>
+
 <body>
 
-    <div class="login-card">
-        <div class="hotel-title">🍋 Lemon Tree Hotel</div>
-        <p class="subtitle">Manager Login</p>
+    <div class="login-container">
 
-        @if (ViewBag.Message != null)
-        {
-            <div class="alert alert-danger">
-                @ViewBag.Message
-            </div>
-        }
+        <div class="logo">
+            <div class="icon">👔</div>
+            <h1>Lemon Tree Hotel</h1>
+            <p>Manager Login Portal</p>
+        </div>
 
-        <form asp-controller="Manager" asp-action="managerlogin" method="post">
+        <form asp-controller="Manager" asp-action="Login" method="post">
+
             @Html.AntiForgeryToken()
 
-            <div class="mb-3">
-                <label for="email" class="form-label">Email Address</label>
+            <div class="input-box">
+                <label>Manager Email</label>
                 <input type="email"
-                       id="email"
-                       name="email"
-                       class="form-control"
-                       placeholder="Enter your email"
+                       name="managerEmail"
+                       placeholder="Enter Manager Email"
                        autocomplete="username"
                        required />
             </div>
 
-            <div class="mb-4">
-                <label for="password" class="form-label">Password</label>
+            <div class="input-box">
+                <label>Password</label>
                 <input type="password"
-                       id="password"
-                       name="password"
-                       class="form-control"
-                       placeholder="Enter your password"
+                       name="managerPassword"
+                       placeholder="Enter Password"
                        autocomplete="current-password"
                        required />
             </div>
 
-            <button type="submit" class="btn-login">
-                Login
+            <div class="options">
+                <label>
+                    <input type="checkbox" />
+                    Remember Me
+                </label>
+
+                <a href="#">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="login-btn">
+                Manager Login
             </button>
 
-            <a asp-controller="Home" asp-action="Index" class="back-link">
-                Back to Home
-            </a>
+            <div class="new-manager">
+                <p>New Manager?</p>
+                <a asp-controller="Manager" asp-action="Index">Register Here</a>
+            </div>
+
         </form>
+
+        <div class="register">
+            Authorized Managers Only
+        </div>
+
+        <div class="message">
+            @ViewBag.Message
+        </div>
+
+        <div class="footer">
+            © 2026 Lemon Tree Hotel | Manager Login Portal
+        </div>
+
     </div>
 
 </body>
